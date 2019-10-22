@@ -18,11 +18,9 @@ from Level import *
 class Sudoku():
 
     # Initialisation avec un état de jeu
-    def __init__(self, grid, player, timer, level, state = "new_game"):
+    def __init__(self, grid, player, timer, state="new_game"):
         self.grid = grid
-        self.player = player
         self.timer = timer
-        self.level = level
         self.state = state
 
     def getGrid(self):
@@ -43,12 +41,6 @@ class Sudoku():
     def setTimer(self, new_timer):
         self.timer = new_timer
 
-    def getLevel(self):
-        return self.level
-
-    def setLevel(self, new_level):
-        self.level = new_level
-
     def getState(self):
         return self.state
 
@@ -57,40 +49,54 @@ class Sudoku():
 
     # Fonction qui permet de démarrer (ou reprendre) le jeu
     def start(self):
+        if self.state != "new_game" and self.state != "paused":
+            if self.state == "game_over":
+                return self.reset()
+        self.state = "running"
+        self.timer.start()
 
     # Fonction qui permet de mettre en pause le jeu
     def pause(self):
+        self.state = "paused"
+        self.timer.pause()
 
     # Fonction qui permet de supprimer le jeu en cours (vider les valeurs et les propositions, remettre le timer à zéro) et de le recommencer
     def reset(self):
-        for i in range(0,9):
-            for j in range(0,9):
-                tmpSquare = Square(Coordinates(i,j))
+        self.state = "new_game"
+        self.timer.reset()
+        for i in range(0, 9):
+            for j in range(0, 9):
+                tmpSquare = Square(Coordinates(i, j))
                 self.clearSquare(tmpSquare)
                 self.clearTrials(tmpSquare)
 
     # Fonction qui permet d'ajouter une valeur à une case donnée
     def addValue(self, square, value):
-        # Retrouver la case dans la grille
-        # Ajouter la valeur à la case
+        for s in self.grid.getSquares():
+            if s.getCoordinates() == square.getCoordinates():
+                s.setValue(value)
 
-    # Fonction qui permet d'ajouter une ou plusieurs proposition(s) à une case donnée
+    # Fonction qui permet d'ajouter une proposition à une case donnée
     def addTrial(self, square, trial):
-        # Retrouver la case dans la grille
-        # Ajouter les propositions à la case
+        for s in self.grid.getSquares():
+            if s.getCoordinates() == square.getCoordinates():
+                s.addTrial(trial)
 
     # Fonction qui permet d'effacer une case donnée (sa valeur et ses propositions)
     def clearSquare(self, square):
-        # Retrouver la case dans la grille
-        # Vider la case de sa valeur
-        # Vider la case de ses propositions
+        self.clearTrials(square)
+        for s in self.grid.getSquares():
+            if s.getCoordinates() == square.getCoordinates():
+                s.clearValue()
 
     # Fonction qui permet d'effacer une proposition donnée dans une case donnée
     def removeTrial(self, square, trial):
-        # Retrouver la case dans la grille
-        # Supprimer la proposition donnée de la case
+        for s in self.grid.getSquares():
+            if s.getCoordinates() == square.getCoordinates():
+                s.clearTrial(trial)
 
     # Fonction qui permet d'effacer toutes les propositions dans une case donnée
     def clearTrials(self, square):
-        # Retrouver la case dans la grille
-        # Vider la case de ses propositions
+        for s in self.grid.getSquares():
+            if s.getCoordinates() == square.getCoordinates():
+                s.clearTrials()
