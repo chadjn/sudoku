@@ -16,10 +16,13 @@ class Coordinates:
         return self.x
 
     def setX(self, new_x):  # fonction pour changer la valeur de x
-        self.new_x
+        self.x = new_x
 
     def getY(self):
         return self.y
 
     def setY(self, new_y):
         self.y = new_y
+
+    def afficher(self):
+        print("({},{})".format(self.x, self.y))

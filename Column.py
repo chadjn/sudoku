@@ -11,3 +11,6 @@ class Column(GridPart):
     # Fonction renvoyant le numéro de la colonne
     def getColumnNb(self):
         return self.getSquare(0).getCoordinates().getY()
+
+    def afficherNb(self):
+        print("Colonne n°{}".format(self.getColumnNb() + 1))

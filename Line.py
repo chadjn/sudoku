@@ -11,3 +11,6 @@ class Line(GridPart):
     # Fonction renvoyant le numéro de la ligne
     def getLineNb(self):
         return self.getSquare(0).getCoordinates().getX()
+
+    def afficherNb(self):
+        print("Ligne n°".format(self.getLineNb() + 1))

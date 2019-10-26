@@ -6,7 +6,7 @@ Léa Dollé
 # classe définissant le joueur du sudoku
 class Player:
 
-    def __init__(self, name, score):
+    def __init__(self, name, score=0):
         self.name = name
         self.score = score
 
@@ -21,3 +21,6 @@ class Player:
 
     def setScore(self, new_score):
         self.score = new_score
+
+    def afficher(self):
+        print("Le joueur {} a un score de {}.".format(self.getName(), self.getScore()))
