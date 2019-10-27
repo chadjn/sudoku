@@ -38,7 +38,7 @@ for i in range(0,9):
 #     c.afficher()
 
 for i in range(0,len(coords)):
-    squares.append(Square(coords[i]))
+    squares.append(Square(coords[i], 0, []))
 
 # for s in squares:
 #     s.afficher()
@@ -66,19 +66,14 @@ for s in squares:
 
 piece = Piece(piece_squares)
 
-# grid = Grid(1, squares)
-#
-# grid.afficherColumns()
-# grid.afficherLines()
-# grid.afficherPieces()
-#
-# grid.afficherSquare(0)
-# grid.afficherColumn(0)
-# grid.afficherLine(0)
-# grid.afficherPiece()
+grid = Grid(1, squares)
+grid.addColumn(column)
+grid.addLine(line)
+grid.addPiece(piece)
 
 level = Level(1)
 player = Player("Charlotte")
 timer = Timer()
 
-# sudoku = Sudoku()
+sudoku = Sudoku(grid, timer)
+

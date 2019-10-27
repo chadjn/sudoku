@@ -29,7 +29,7 @@ class Square :
         return self.trials[n] #accéder à un indice tu tableau
 
     def addTrial (self, new_trial) :
-        self.trials.append (new_trial)
+        self.trials.append(new_trial)
 
     def isChecked (self):
         return self.checked

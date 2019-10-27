@@ -127,9 +127,9 @@ class Grid():
         for l in self.getLines():
             l.afficher()
 
-    def afficherPiece(self, center):
-        print("Carré de centre ({},{}) de la grille n°{} :".format(self.getPiece(center).getCenter().getX(), self.getPiece(center).getCenter().getY(), self.getId()))
-        self.getPiece(center).afficher()
+    def afficherPiece(self, nb):
+        print("Carré de centre ({},{}) de la grille n°{} :".format(self.getPiece(nb).getCenter().getX(), self.getPiece(nb).getCenter().getY(), self.getId()))
+        self.getPiece(nb).afficher()
 
     def afficherColumn(self, nb):
         print("Colonne n°{} de la grille n°{} :".format(self.getColumn(nb).getColumnNb(), self.getId()))
