@@ -85,8 +85,11 @@ class Grid():
         checked = True
         i = 0
 
+        # La boucle continue à chercher tant qu'il n'a pas rencontré de valeur infirmante et qu'il reste des cases à vérifier
         while checked is True and i != len(self.squares):
-            if not self.squares[i].isChecked() or self.squares[i].getValue() == 0:
+
+            # Si la case n'est ni valide, ni nulle alors elle est erronée
+            if not (self.squares[i].isChecked() or self.squares[i].getValue() == 0):
                 checked = False
             i += 1
 
@@ -95,7 +98,43 @@ class Grid():
         checked = True
         i = 0
 
+        # La boucle continue à chercher tant qu'il n'a pas rencontré de valeur infirmante et qu'il reste des cases à vérifier
         while checked is True and i != len(self.squares):
             if not self.squares[i].isChecked():
                 checked = False
             i += 1
+
+    def afficher(self):
+        print("Grille n°{} :".format(self.getId()))
+        for s in self.getSquares():
+            s.afficher()
+
+    def afficherSquare(self, n):
+        self.getSquare(n).afficher()
+
+    def afficherPieces(self):
+        print("Carrés de la grille n°{} :".format(self.getId()))
+        for p in self.getPieces():
+            p.afficher()
+
+    def afficherColumns(self):
+        print("Colonnes de la grille n°{} :".format(self.getId()))
+        for c in self.getColumns():
+            c.afficher()
+
+    def afficherLines(self):
+        print("Lignes de la grille n°{} :".format(self.getId()))
+        for l in self.getLines():
+            l.afficher()
+
+    def afficherPiece(self, nb):
+        print("Carré de centre ({},{}) de la grille n°{} :".format(self.getPiece(nb).getCenter().getX(), self.getPiece(nb).getCenter().getY(), self.getId()))
+        self.getPiece(nb).afficher()
+
+    def afficherColumn(self, nb):
+        print("Colonne n°{} de la grille n°{} :".format(self.getColumn(nb).getColumnNb(), self.getId()))
+        self.getColumn(nb).afficher()
+
+    def afficherLine(self, nb):
+        print("Ligne n°{} de la grille n°{} :".format(self.getLine(nb).getLineNb(), self.getId()))
+        self.getLine(nb).afficher()

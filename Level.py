@@ -14,3 +14,6 @@ class Level:
 
     def setNumber(self, new_number):
         self.number = new_number
+
+    def afficher(self):
+        print("Niveau", self.getNumber())

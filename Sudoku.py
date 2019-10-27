@@ -18,7 +18,7 @@ from Level import *
 class Sudoku():
 
     # Initialisation avec un état de jeu
-    def __init__(self, grid, player, timer, state="new_game"):
+    def __init__(self, grid, timer, state="new_game"):
         self.grid = grid
         self.timer = timer
         self.state = state
@@ -28,12 +28,6 @@ class Sudoku():
 
     def setGrid(self, new_grid):
         self.grid = new_grid
-
-    def getPlayer(self):
-        return self.player
-
-    def setPlayer(self, new_player):
-        self.player = new_player
 
     def getTimer(self):
         return self.timer
@@ -100,3 +94,7 @@ class Sudoku():
         for s in self.grid.getSquares():
             if s.getCoordinates() == square.getCoordinates():
                 s.clearTrials()
+
+    def afficher(self):
+        print("Le sudoku joue la grille n°{} depuis {}:{} (état = {}) :".format(self.getGrid().getId(), self.getTimer().getMinutes(), self.getTimer().getSecondes(), self.getState()))
+        self.getGrid().afficher()

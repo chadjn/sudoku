@@ -6,7 +6,7 @@ Lucille Gueguen
 # classe mettant en place le timer du SUDOKU
 class Timer:
 
-    def __init__(self, secondes, minutes):
+    def __init__(self, secondes=0, minutes=0):
         self.secondes = secondes
         self.minutes = minutes
 
@@ -21,3 +21,22 @@ class Timer:
 
     def setMinutes(self, new_minutes):
         self.minutes = new_minutes
+
+    def start(self):
+        # Définition temporaire en attente d'un vrai timer --> TODO: timer dynamique ?
+        self.secondes += 1
+        print('START')
+
+    def pause(self):
+        # Définition temporaire en attente d'un vrai timer --> TODO: timer dynamique ?
+        print('STOP')
+
+    def reset(self):
+        self.pause()
+        self.setSecondes(0)
+        self.setMinutes(0)
+        print('RESET')
+
+
+    def afficher(self):
+        print("Timer : {}:{}".format(self.getMinutes(), self.getSecondes()))

@@ -11,3 +11,6 @@ class Piece(GridPart):
     # Fonction renvoyant les coordonnées du centre du "super-carré"
     def getCenter(self):
         return self.getSquare(4).getCoordinates()
+
+    def afficherNb(self):
+        print("Carré de centre ({},{})".format(self.getCenter().getX(), self.getCenter().getY()))
