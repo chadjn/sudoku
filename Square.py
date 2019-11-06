@@ -10,7 +10,7 @@ from Coordinates import *
 
 class Square :
 
-    def __init__ (self, coordinates, value=0, trials=[], checked=True) :
+    def __init__ (self, coordinates, value=0, trials=[], checked=False) :
         self.value = value
         self.trials = trials
         self.checked = checked
@@ -53,4 +53,5 @@ class Square :
         self.value = 0
 
     def afficher(self):
-        print("({},{}) = {} (fixe ? {}), essais : {}".format(self.getCoordinates().getX(), self.getCoordinates().getY(), self.getValue(), self.isChecked(), self.getTrials()))
+        print('[{}]'.format(self.getValue()))
+        # print("({},{}) = {} (fixe ? {}), essais : {}".format(self.getCoordinates().getX(), self.getCoordinates().getY(), self.getValue(), self.isChecked(), self.getTrials()))

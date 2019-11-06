@@ -18,9 +18,8 @@ from Level import *
 class Sudoku():
 
     # Initialisation avec un état de jeu
-    def __init__(self, grid, timer, state="new_game"):
+    def __init__(self, grid, state="new_game"):
         self.grid = grid
-        self.timer = timer
         self.state = state
 
     def getGrid(self):
@@ -28,12 +27,6 @@ class Sudoku():
 
     def setGrid(self, new_grid):
         self.grid = new_grid
-
-    def getTimer(self):
-        return self.timer
-
-    def setTimer(self, new_timer):
-        self.timer = new_timer
 
     def getState(self):
         return self.state
@@ -47,17 +40,14 @@ class Sudoku():
             if self.state == "game_over":
                 return self.reset()
         self.state = "running"
-        self.timer.start()
 
     # Fonction qui permet de mettre en pause le jeu
     def pause(self):
         self.state = "paused"
-        self.timer.pause()
 
     # Fonction qui permet de supprimer le jeu en cours (vider les valeurs et les propositions, remettre le timer à zéro) et de le recommencer
     def reset(self):
         self.state = "new_game"
-        self.timer.reset()
         for i in range(0, 9):
             for j in range(0, 9):
                 tmpSquare = Square(Coordinates(i, j))
@@ -96,5 +86,5 @@ class Sudoku():
                 s.clearTrials()
 
     def afficher(self):
-        print("Le sudoku joue la grille n°{} depuis {}:{} (état = {}) :".format(self.getGrid().getId(), self.getTimer().getMinutes(), self.getTimer().getSecondes(), self.getState()))
+        print("Le sudoku joue la grille n°{} (état = {}) :".format(self.getGrid().getId(), self.getState()))
         self.getGrid().afficher()
