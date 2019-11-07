@@ -24,5 +24,8 @@ class Coordinates:
     def setY(self, new_y):
         self.y = new_y
 
+    def fromCoordinatesToNumber(self, n):
+        return (self.x - 1) * n + (self.y - 1)
+
     def afficher(self):
         print("({},{})".format(self.x, self.y))

@@ -1,27 +1,3 @@
-import Column
-from Column import *
-
-import Coordinates
-from Coordinates import *
-
-import Grid
-from Grid import *
-
-import Level
-from Level import *
-
-import Line
-from Line import *
-
-import Piece
-from Piece import *
-
-import Player
-from Player import *
-
-import Square
-from Square import *
-
 import Sudoku
 from Sudoku import *
 
@@ -31,87 +7,116 @@ from Timer import *
 import grids
 from grids import *
 
+import grids_soluce
+from grids_soluce import *
+
+def create_grid(size, grid_tab):
+    coords = []
+    squares = []
+    for i in range(0, size):
+        for j in range(0, size):
+            coords.append(Coordinates(i, j))
+
+    for i in range(0, len(coords)):
+        squares.append(Square(coords[i], grid_tab[i], [], grid_tab[i] != 0))
+
+    return squares
+
+def chooseSquare(board):
+    x = int(input("Sur quelle ligne se trouve la case choisie ? "))
+    y = int(input("Sur quelle colonne se trouve la case choisie ? "))
+    return board.getGrid().getSquare(Coordinates(x, y).fromCoordinatesToNumber(board.getGrid().size()))
+
 quit = False
 choice1 = 'M'
+name = None
+size = 9
 
-coords = []
-squares = []
-for i in range(0, 9):
-    for j in range(0, 9):
-        coords.append(Coordinates(i, j))
-
-for i in range(0, len(coords)):
-    squares.append(Square(coords[i], 0, [], True))
-
-while quit != True :
+while quit is False:
 
     if choice1 == 'J' :
         name = input("Entrez votre nom :")
-        player = Player(name)
+        level = int(input("Entrez le niveau auquel vous souhaitez jouer :"))
 
-        level_choice = int(input("Entrez le niveau auquel vous souhaitez jouer :"))
+        if level < 1:
+            level = 1
+        elif level > 3:
+            level = 3
 
-        if level_choice < 1 :
-            level = Level(1)
-        elif level_choice > 3 :
-            level = Level(3)
-        else :
-            level = Level(level_choice)
-
-        for i in range(0, len(squares)):
-            squares[i].setValue(grid_empty[level.getNumber() - 1][i])
-            if grid_empty[level.getNumber() - 1][i] == 0:
-                squares[i].setChecked(False)
-
-        grid = Grid(level.getNumber(), squares)
+        grid = Grid(level, create_grid(size, grid_empty[level - 1]))
         sudoku = Sudoku(grid)
 
         sudoku.afficher()
-        menu = False
+        end = False
+        choice2 = 'L'
 
-        while menu != True :
-            print('_____________________________')
-            print('(C) - Entrer un chiffre')
-            print('(B) - Entrer un brouillon')
-            print('(Z) - Effacer une case')
-            print('(E) - Effacer un brouillon')
-            print('(M) - Revenir au menu')
-            print('_____________________________')
-            choice2 = input()
+        while end is False:
 
-            if choice2 == 'C' :
-                sx = int(input("Sur quelle ligne se trouve la case que vous voulez remplir ? "))
-                sy = int(input("Sur quelle colonne se trouve la case que vous voulez remplir ? "))
-                s = sudoku.getGrid().getSquare((sx - 1) * 9 + (sy - 1))
-                v = int(input("Quelle valeur voulez-vous renseigner ? "))
-                sudoku.addValue(s, v)
-                sudoku.afficher()
-            elif choice2 == 'B' :
-                sx = int(input("Sur quelle ligne se trouve la case dont vous voulez renseigner un brouillon ? "))
-                sy = int(input("Sur quelle colonne se trouve la case dont vous voulez renseigner un brouillon ? "))
-                s = sudoku.getGrid().getSquare((sx - 1) * 9 + (sy - 1))
-                t = int(input("Quelle valeur voulez-vous renseigner pour votre brouillon ? "))
-                sudoku.addTrial(s, t)
-                sudoku.afficher()
-            elif choice2 == 'Z' :
-                sx = int(input("Sur quelle ligne se trouve la case que vous voulez effacer ? "))
-                sy = int(input("Sur quelle colonne se trouve la case que vous voulez effacer ? "))
-                s = sudoku.getGrid().getSquare((sx - 1) * 9 + (sy - 1))
+            if choice2 == 'V':
+                s = chooseSquare(sudoku)
+
+                if s.isChecked():
+                    print("Tu ne peux pas modifier cette case.")
+                else:
+                    v = int(input("Quelle valeur voulez-vous renseigner ? "))
+                    sudoku.addValue(s, v)
+                    sudoku.clearTrials(s)
+
+                    if grid_soluce[level - 1][s.getCoordinates().fromCoordinatesToNumber(size)] == v:
+                        s.setChecked(True)
+
+                    end = sudoku.getGrid().complete_checked()
+                    sudoku.afficher()
+                    choice2 = 'L'
+
+            elif choice2 == 'B':
+                s = chooseSquare(sudoku)
+
+                if s.isChecked():
+                    print("Tu ne peux pas modifier cette case.")
+                else :
+                    t = int(input("Quelle valeur voulez-vous renseigner pour votre brouillon ? "))
+                    sudoku.addTrial(s, t)
+                    sudoku.afficher()
+                    choice2 = 'L'
+            elif choice2 == 'Z':
+                s = chooseSquare(sudoku)
                 sudoku.clearSquare(s)
+                s.setChecked(False)
                 sudoku.afficher()
-            elif choice2 == 'E' :
-                sx = int(input("Sur quelle ligne se trouve la case dont vous voulez effacer un brouillon ? "))
-                sy = int(input("Sur quelle colonne se trouve la case dont vous voulez effacer un brouillon ? "))
-                s = sudoku.getGrid().getSquare((sx - 1) * 9 + (sy - 1))
+                choice2 = 'L'
+            elif choice2 == 'E':
+                s = chooseSquare(sudoku)
                 t = int(input("Quelle valeur voulez-vous effacer de votre brouillon ? "))
                 sudoku.removeTrial(s, t)
                 sudoku.afficher()
-            elif choice2 == 'M' :
-                menu = True
-                choice1 = 'M'
-            else :
+                choice2 = 'L'
+            elif choice2 == 'L':
+                print('_____________________________')
+                print('(V) - Entrer une valeur')
+                print('(B) - Entrer un brouillon')
+                print('(Z) - Effacer une case')
+                print('(E) - Effacer un brouillon')
+                print('(M) - Revenir au menu')
+                print('_____________________________')
+                choice2 = input()
+            elif choice2 == 'M':
+                print('Attention, toutes vos modifications seront perdues. Souhaitez-vous continuer ?')
+                print('(V) - Valider')
+                print('Toute autre action annulera votre démarche.')
+                ok = input()
+
+                if ok == 'V':
+                    choice1 = 'M'
+                    end = True
+                else:
+                    choice2 = 'L'
+            else:
                 print('Veuillez vérifier votre réponse, elle ne correspond à aucune action connue.')
-    elif choice1 == 'C' :
+                choice2 = 'L'
+
+        choice1 = 'G'
+    elif choice1 == 'C':
         print("Remplissez les cases avec un chiffre de 1 à 9. Attention à n'utiliser un chiffre qu'une seule fois par ligne, par colonne et par carré. Vous pouvez choisir votre niveau de jeu, de 1 à 3. Le premier niveau fait apparaître les chiffres en vert ou en rouge, selon qu'il est correct ou non. Le deuxième niveau n'a pas d'indices mais n'a pas non plus de système d'erreur. Le troisième et dernier niveau n'offre la possibilité de ne faire que trois erreurs maximum.")
         print("Le premier niveau fait apparaître les chiffres en vert ou en rouge, selon qu'il est correct ou non.")
         print("Le deuxième niveau n'a pas d'indices mais n'a pas non plus de système d'erreur.")
@@ -121,16 +126,20 @@ while quit != True :
         print('(Q) - Quitter')
         print('_____________________________')
         choice1 = input()
-    elif choice1 == 'M' :
+    elif choice1 == 'M':
         print('_____________________________')
         print('(J) - Jouer')
         print('(C) - Crédits')
         print('(Q) - Quitter')
         print('_____________________________')
         choice1 = input()
+    elif choice1 == 'G':
+        print('Bravo {} ! Vous avez terminé la grille avec succès !'.format(name))
+        choice1 = 'M'
     elif choice1 == 'Q':
         quit = True
-    else :
+    else:
         print('Veuillez vérifier votre réponse, elle ne correspond à aucune action connue.')
+        choice1 = 'M'
 
 

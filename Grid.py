@@ -93,6 +93,8 @@ class Grid():
                 checked = False
             i += 1
 
+        return checked
+
     # Fonction qui vérifie que la partie n'est composée que de valeurs correctes
     def complete_checked(self):
         checked = True
@@ -103,6 +105,8 @@ class Grid():
             if not self.squares[i].isChecked():
                 checked = False
             i += 1
+
+        return checked
 
     def afficher(self):
         print("Grille n°{} :".format(self.getId()))
@@ -138,3 +142,6 @@ class Grid():
     def afficherLine(self, nb):
         print("Ligne n°{} de la grille n°{} :".format(self.getLine(nb).getLineNb(), self.getId()))
         self.getLine(nb).afficher()
+
+    def size(self):
+        return len(self.getPieces())

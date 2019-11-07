@@ -53,5 +53,5 @@ class Square :
         self.value = 0
 
     def afficher(self):
-        print('[{}]'.format(self.getValue()))
+        print('[{}] (brouillon : {})'.format(self.getValue(), self.getTrials()))
         # print("({},{}) = {} (fixe ? {}), essais : {}".format(self.getCoordinates().getX(), self.getCoordinates().getY(), self.getValue(), self.isChecked(), self.getTrials()))
