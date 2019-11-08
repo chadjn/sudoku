@@ -1,6 +1,10 @@
 # Sudoku
 
-## Initialisation du git
+## Utilisation du Sudoku
+À ce jour, le Sudoku ne possède ni interface graphique, ni timer et n'automatise pas l'effacement des brouillons. Cependant, il est tout à fait opérationnel. Il ne propose également que trois niveaux (une grille par niveau).
+Toutes les informations dont vous aurez besoin pour interagir avec le sudoku vous seront expliquées au fur et à mesure du jeu. Amusez-vous bien !
+
+## Initialisation du git (pour Lucille et Léa)
 * Ouvrir ton terminal.
 * Parcourir tes fichiers jusqu'à accéder à l'endroit où tu veux ranger tout le projet (ex: C:\Users\Charlotte\Documents\Master MCN\Projets\Semestre 7\Sudoku) --> voir le tutoriel sur le terminal sur OpenClassRoom
 * Copier-coller l'instruction `git clone https://github.com/chadjn/sudoku.git` et appuyer sur la touche "Entrée" de ton clavier

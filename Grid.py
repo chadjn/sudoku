@@ -6,17 +6,8 @@ Date : 22 octobre 2019"""
 import Square
 from Square import *
 
-import Piece
-from Piece import *
-
-import Column
-from Column import *
-
-import Line
-from Line import *
-
-import Level
-from Level import *
+import math
+from math import sqrt
 
 class Grid():
     def __init__(self, id, squares = []):
@@ -44,46 +35,11 @@ class Grid():
     def addSquare(self, new_square):
         self.squares.append(new_square)
 
-    # Fonction qui renvoie le tableau des "super-carrés"
-    def getPieces(self):
-        return self.pieces
-
-    # Fonction qui renvoie un "super-carré" particulier en fonction de sa place dans le tableau
-    def getPiece(self, n):
-        return self.pieces[n]
-
-    # Fonction qui ajoute un "super-carré" (new_piece) à la suite dans le tableau des "super-carrés"
-    def addPiece(self, new_piece):
-        self.pieces.append(new_piece)
-
-    # Fonction qui renvoie le tableau des colonnes
-    def getColumns(self):
-        return self.columns
-
-    # Fonction qui renvoie une colonne particulière en fonction de sa place dans le tableau
-    def getColumn(self, n):
-        return self.columns[n]
-
-    # Fonction qui ajoute une colonne (new_square) à la suite dans le tableau des colonnes
-    def addColumn(self, new_column):
-        self.columns.append(new_column)
-
-    # Fonction qui renvoie le tableau des lignes
-    def getLines(self):
-        return self.lines
-
-    # Fonction qui renvoie une ligne particulière en fonction de sa place dans le tableau
-    def getLine(self, n):
-        return self.lines[n]
-
-    # Fonction qui ajoute une ligne (new_line) à la suite dans le tableau des lignes
-    def addLine(self, new_line):
-        self.lines.append(new_line)
-
+    # Fonction qui renvoie une liste de coordonnées de case selon qu'elles sont correctes ou non
     def listOfSquaresByChecked(self, checked):
         list = []
         for s in self.squares:
-            if s.isChecked() == checked and not s.isFixed():
+            if s.isChecked() == checked and not s.isFixed() and s.getValue() != 0:
                 list.append(s.getCoordinates())
         return list
 
@@ -122,33 +78,3 @@ class Grid():
 
     def afficherSquare(self, n):
         self.getSquare(n).afficher()
-
-    def afficherPieces(self):
-        print("Carrés de la grille n°{} :".format(self.getId()))
-        for p in self.getPieces():
-            p.afficher()
-
-    def afficherColumns(self):
-        print("Colonnes de la grille n°{} :".format(self.getId()))
-        for c in self.getColumns():
-            c.afficher()
-
-    def afficherLines(self):
-        print("Lignes de la grille n°{} :".format(self.getId()))
-        for l in self.getLines():
-            l.afficher()
-
-    def afficherPiece(self, nb):
-        print("Carré de centre ({},{}) de la grille n°{} :".format(self.getPiece(nb).getCenter().getX(), self.getPiece(nb).getCenter().getY(), self.getId()))
-        self.getPiece(nb).afficher()
-
-    def afficherColumn(self, nb):
-        print("Colonne n°{} de la grille n°{} :".format(self.getColumn(nb).getColumnNb(), self.getId()))
-        self.getColumn(nb).afficher()
-
-    def afficherLine(self, nb):
-        print("Ligne n°{} de la grille n°{} :".format(self.getLine(nb).getLineNb(), self.getId()))
-        self.getLine(nb).afficher()
-
-    def size(self):
-        return len(self.getPieces())

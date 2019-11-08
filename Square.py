@@ -30,7 +30,7 @@ class Square :
         return self.trials[n] #accéder à un indice tu tableau
 
     def haveTrial(self, n):
-        return any(t == n for t in self.trials)
+        return any(t == n for t in self.trials) #vérifier que la donnée existe
 
     def addTrial (self, new_trial) :
         self.trials.append(new_trial)
@@ -64,4 +64,3 @@ class Square :
 
     def afficher(self):
         print('[{}] (brouillon : {})'.format(self.getValue(), self.getTrials()))
-        # print("({},{}) = {} (fixe ? {}), essais : {}".format(self.getCoordinates().getX(), self.getCoordinates().getY(), self.getValue(), self.isChecked(), self.getTrials()))
