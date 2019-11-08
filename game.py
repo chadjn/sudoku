@@ -71,7 +71,7 @@ while quit is False:
     if choice1 == 'M':
         print('_____________________________')
         print('(J) - Jouer')
-        print('(C) - Crédits')
+        print('(R) - Règlement')
         print('(Q) - Quitter')
         print('_____________________________')
         choice1 = input()
@@ -230,8 +230,8 @@ while quit is False:
 
         choice1 = 'E'
 
-    # Voir les crédits
-    elif choice1 == 'C':
+    # Voir le règlement
+    elif choice1 == 'R':
         print("Remplissez les cases avec un chiffre de 1 à 9. Attention à n'utiliser un chiffre qu'une seule fois par ligne, par colonne et par carré. Vous pouvez choisir votre niveau de jeu, de 1 à 3. Le premier niveau fait apparaître les chiffres en vert ou en rouge, selon qu'il est correct ou non. Le deuxième niveau n'a pas d'indices mais n'a pas non plus de système d'erreur. Le troisième et dernier niveau n'offre la possibilité de ne faire que trois erreurs maximum.")
         print("Le premier niveau fait apparaître les chiffres en vert ou en rouge, selon qu'il est correct ou non.")
         print("Le deuxième niveau n'a pas d'indices mais n'a pas non plus de système d'erreur.")
