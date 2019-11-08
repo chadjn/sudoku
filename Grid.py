@@ -13,9 +13,6 @@ class Grid():
     def __init__(self, id, squares = []):
         self.id = id
         self.squares = squares
-        self.pieces = []
-        self.columns = []
-        self.lines = []
 
     def getId(self):
         return self.id
@@ -42,21 +39,6 @@ class Grid():
             if s.isChecked() == checked and not s.isFixed() and s.getValue() != 0:
                 list.append(s.getCoordinates())
         return list
-
-    # Fonction qui vérifie que la partie n'est composée que de valeurs correctes ou manquantes
-    def checked(self):
-        checked = True
-        i = 0
-
-        # La boucle continue à chercher tant qu'il n'a pas rencontré de valeur infirmante et qu'il reste des cases à vérifier
-        while checked is True and i != len(self.squares):
-
-            # Si la case n'est ni valide, ni nulle alors elle est erronée
-            if not (self.squares[i].isChecked() or self.squares[i].getValue() == 0):
-                checked = False
-            i += 1
-
-        return checked
 
     # Fonction qui vérifie que la partie n'est composée que de valeurs correctes
     def complete_checked(self):
