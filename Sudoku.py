@@ -77,7 +77,8 @@ class Sudoku():
     def removeTrial(self, square, trial):
         for s in self.grid.getSquares():
             if s.getCoordinates() == square.getCoordinates():
-                s.clearTrial(trial)
+                if s.haveTrial(trial):
+                    s.clearTrial(trial)
 
     # Fonction qui permet d'effacer toutes les propositions dans une case donnée
     def clearTrials(self, square):

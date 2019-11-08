@@ -10,9 +10,10 @@ from Coordinates import *
 
 class Square :
 
-    def __init__ (self, coordinates, value=0, trials=[], checked=False) :
+    def __init__ (self, coordinates, value=0, trials=[], fixed = False, checked=False) :
         self.value = value
         self.trials = trials
+        self.fixed = fixed
         self.checked = checked
         self.coordinates = coordinates
 
@@ -28,20 +29,29 @@ class Square :
     def getTrial (self, n):
         return self.trials[n] #accéder à un indice tu tableau
 
+    def haveTrial(self, n):
+        return any(t == n for t in self.trials)
+
     def addTrial (self, new_trial) :
         self.trials.append(new_trial)
 
+    def isFixed(self):
+        return self.fixed
+
+    def setFixed(self, new_fixed):
+        self.fixed = new_fixed
+
     def isChecked (self):
         return self.checked
+
+    def setChecked (self, new_checked):
+        self.checked = new_checked
 
     def getCoordinates (self):
         return self.coordinates
 
     def setCoordinates (self, new_coordinates) :
         self.coordinates = new_coordinates
-
-    def setChecked (self, new_checked):
-        self.checked = new_checked
 
     def clearTrial (self, trial) :
         self.trials.remove (trial)

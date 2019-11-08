@@ -80,6 +80,13 @@ class Grid():
     def addLine(self, new_line):
         self.lines.append(new_line)
 
+    def listOfSquaresByChecked(self, checked):
+        list = []
+        for s in self.squares:
+            if s.isChecked() == checked and not s.isFixed():
+                list.append(s.getCoordinates())
+        return list
+
     # Fonction qui vérifie que la partie n'est composée que de valeurs correctes ou manquantes
     def checked(self):
         checked = True
