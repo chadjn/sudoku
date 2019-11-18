@@ -117,7 +117,7 @@ while quit is False:
 
             # Entrer une valeur dans une case
             elif choice2 == 'V':
-                s = chooseSquare(sudoku.getGrid())
+                s = chooseSquare(sudoku.getGrid(), size)
 
                 # Si la case est fixe, elle n'est pas modifiable
                 if s.isFixed():
@@ -155,7 +155,7 @@ while quit is False:
 
             # Entrer un brouillon dans une case
             elif choice2 == 'B':
-                s = chooseSquare(sudoku.getGrid())
+                s = chooseSquare(sudoku.getGrid(), size)
 
                 # Si la case est fixe, elle n'est pas modifiable
                 if s.isFixed():
@@ -176,7 +176,7 @@ while quit is False:
 
             # Effacer une case
             elif choice2 == 'Z':
-                s = chooseSquare(sudoku.getGrid())
+                s = chooseSquare(sudoku.getGrid(), size)
                 sudoku.clearSquare(s)
                 s.setChecked(False)
                 sudoku.afficher()
@@ -186,7 +186,7 @@ while quit is False:
 
             # Effacer un brouillon
             elif choice2 == 'E':
-                s = chooseSquare(sudoku.getGrid())
+                s = chooseSquare(sudoku.getGrid(), size)
                 t = 0
                 while t < 1 or t > 9:
                     t = int(input("Quelle valeur voulez-vous effacer de votre brouillon ? "))
@@ -253,7 +253,7 @@ while quit is False:
         elif not sudoku.getGrid().complete_checked():
             print('Oh... Désolé, {}, mais tu as perdu.'.format(name))
 
-        # Sinon, c'est un utilisage détourné, nous le faisons remarquer
+        # Sinon, c'est une utilision détournée, nous le faisons remarquer
         else:
             print('Petit malin...')
 
