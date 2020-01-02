@@ -53,10 +53,3 @@ class GridPart(abc.ABC):
             i += 1
 
         return checked
-
-    def afficher(self):
-        for s in self.getSquares():
-            s.afficher()
-
-    def afficherSquare(self, n):
-        self.getSquare(n).afficher()

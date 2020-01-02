@@ -62,5 +62,10 @@ class Square :
     def clearValue (self):
         self.value = 0
 
-    def afficher(self):
-        print('[{}] (brouillon : {})'.format(self.getValue(), self.getTrials()))
+    def afficher(self, end):
+        print(str(self.getValue()) + " ", end=end)
+
+    def afficher_trials(self, line, end, fill):
+        print('[{}][{}][{}] '.format(3*line-2 if self.haveTrial(3*line-2) else fill,
+                                     3*line-1 if self.haveTrial(3*line-1) else fill,
+                                     3*line if self.haveTrial(3*line) else fill), end=end)

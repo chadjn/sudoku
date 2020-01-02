@@ -56,6 +56,39 @@ def winOrLoose(counter, max, grid):
     else:
         return grid.complete_checked()
 
+def print_sudoku(sudoku, size):
+    for i in range(size):
+        if i % 3 == 0 and i != 0:
+            print("- - - - - - - - - - - - - ")
+
+        for j in range(size):
+            if j % 3 == 0 and j != 0:
+                print(" | ", end="")
+
+            if j == size-1:
+                sudoku.getGrid().getSquare(Coordinates(i+1, j+1).fromCoordinatesToNumber(size)).afficher(None)
+            else:
+                sudoku.getGrid().getSquare(Coordinates(i+1, j+1).fromCoordinatesToNumber(size)).afficher("")
+
+def print_sudoku_trials(sudoku, size):
+    for i in range(size):
+        if i % 3 == 0 and i != 0:
+            print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -")
+
+        for k in range(1, 4):
+            for j in range(size):
+                if j % 3 == 0 and j != 0:
+                    print("| ", end="")
+
+                square_to_print = sudoku.getGrid().getSquare(Coordinates(i + 1, j + 1).fromCoordinatesToNumber(size))
+
+                if j == size-1:
+                    square_to_print.afficher_trials(k, None, "X" if square_to_print.getValue() != 0 else " ")
+                else:
+                    square_to_print.afficher_trials(k, "", "X" if square_to_print.getValue() != 0 else " ")
+            if k == 3 and i % 3 != 2:
+                print("                              |                               |                              ")
+
 
 quit = False
 choice1 = 'M'
@@ -91,7 +124,8 @@ while quit is False:
         grid = Grid(level, create_grid(size, grid_empty[level - 1]))
         sudoku = Sudoku(grid)
 
-        sudoku.afficher()
+        print_sudoku(sudoku, size)
+        print_sudoku_trials(sudoku, size)
 
         end = False
         choice2 = 'L'
@@ -148,7 +182,8 @@ while quit is False:
                     else:
                         end = sudoku.getGrid().complete_checked()
 
-                    sudoku.afficher()
+                    print_sudoku(sudoku, size)
+                    print_sudoku_trials(sudoku, size)
 
                     # On retourne ensuite au menu intermédiaire
                     choice2 = 'L'
@@ -169,7 +204,8 @@ while quit is False:
                     while t < 1 or t > 9:
                         t = int(input("Quelle valeur voulez-vous renseigner pour votre brouillon ? "))
                     sudoku.addTrial(s, t)
-                    sudoku.afficher()
+                    print_sudoku(sudoku, size)
+                    print_sudoku_trials(sudoku, size)
 
                     # On retourne ensuite au menu intermédiaire
                     choice2 = 'L'
@@ -179,7 +215,8 @@ while quit is False:
                 s = chooseSquare(sudoku.getGrid(), size)
                 sudoku.clearSquare(s)
                 s.setChecked(False)
-                sudoku.afficher()
+                print_sudoku(sudoku, size)
+                print_sudoku_trials(sudoku, size)
 
                 # On retourne ensuite au menu intermédiaire
                 choice2 = 'L'
@@ -191,7 +228,8 @@ while quit is False:
                 while t < 1 or t > 9:
                     t = int(input("Quelle valeur voulez-vous effacer de votre brouillon ? "))
                 sudoku.removeTrial(s, t)
-                sudoku.afficher()
+                print_sudoku(sudoku, size)
+                print_sudoku_trials(sudoku, size)
 
                 # On retourne ensuite au menu intermédiaire
                 choice2 = 'L'

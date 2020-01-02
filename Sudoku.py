@@ -49,7 +49,3 @@ class Sudoku():
         for s in self.grid.getSquares():
             if s.getCoordinates() == square.getCoordinates():
                 s.clearTrials()
-
-    def afficher(self):
-        print("Le sudoku joue la grille n°{}.".format(self.getGrid().getId()))
-        self.getGrid().afficher()
