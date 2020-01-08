@@ -12,14 +12,14 @@ import grids_soluce
 from grids_soluce import *
 
 # Fonction qui permet à l'utilisateur de renseigner la case avec laquelle il souhaite interagir
-def chooseSquare(grid, size):
+def chooseSquare(grid):
     x = 0
     y = 0
     while x < 1 or x > 9:
         x = int(input("Sur quelle ligne se trouve la case choisie ? "))
     while y < 1 or y > 9:
         y = int(input("Sur quelle colonne se trouve la case choisie ? "))
-    return grid.getSquare(Coordinates(x, y).fromCoordinatesToNumber(size))
+    return grid.getSquare(x - 1, y - 1)
 
 
 # Fonction qui renseigne quelles cases remplies par l'utilisateur sont correctes et lesquelles sont incorrectes
@@ -139,7 +139,7 @@ def main():
 
                 # Entrer une valeur dans une case
                 elif choice2 == 'V':
-                    s = chooseSquare(sudoku.getGrid(), size)
+                    s = chooseSquare(sudoku.getGrid())
 
                     # Si la case est fixe, elle n'est pas modifiable
                     if s.isFixed():
@@ -178,7 +178,7 @@ def main():
 
                 # Entrer un brouillon dans une case
                 elif choice2 == 'B':
-                    s = chooseSquare(sudoku.getGrid(), size)
+                    s = chooseSquare(sudoku.getGrid())
 
                     # Si la case est fixe, elle n'est pas modifiable
                     if s.isFixed():
@@ -200,7 +200,7 @@ def main():
 
                 # Effacer une case
                 elif choice2 == 'Z':
-                    s = chooseSquare(sudoku.getGrid(), size)
+                    s = chooseSquare(sudoku.getGrid())
                     sudoku.clearSquare(s)
                     s.setChecked(False)
                     print_sudoku(sudoku, size)
@@ -211,7 +211,7 @@ def main():
 
                 # Effacer un brouillon
                 elif choice2 == 'E':
-                    s = chooseSquare(sudoku.getGrid(), size)
+                    s = chooseSquare(sudoku.getGrid())
                     t = 0
                     while t < 1 or t > 9:
                         t = int(input("Quelle valeur voulez-vous effacer de votre brouillon ? "))

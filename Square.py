@@ -93,19 +93,57 @@ class Square :
                                      3*line-1 if self.haveTrial(3*line-1) else fill,
                                      3*line if self.haveTrial(3*line) else fill), end=end)
 
-    def drawSquare(self, window):
-        fnt = pygame.font.SysFont("Arial", 20)
+    def drawSquare(self, window, color):
+        if self.fixed:
+            fnt = pygame.font.Font('C:\WINDOWS\FONTS\CARYBE_0.OTF', 20)
+        elif self.getValue() == 0:
+            fnt = pygame.font.SysFont("Arial", 14)
+        else:
+            fnt = pygame.font.SysFont("Arial", 20)
 
         gap = self.width / 9
         x = self.getCoordinates().getY() * gap
         y = self.getCoordinates().getX() * gap
 
         if self.getTrials() != [] and self.getValue() == 0:
-            text = fnt.render(str(self.getTrials()), 1, (128, 128, 128))
-            window.blit(text, (x + 5, y + 5))
+            for t in self.trials:
+                text = fnt.render(str(t), 1, (128, 128, 128))
+                tx = 0
+                ty = 0
+
+                if t == 1:
+                    tx = 2
+                    ty = 0
+                elif t == 2:
+                    tx = 11
+                    ty = 0
+                elif t == 3:
+                    tx = 21
+                    ty = 0
+                elif t == 4:
+                    tx = 2
+                    ty = 3
+                elif t == 5:
+                    tx = 11
+                    ty = 3
+                elif t == 6:
+                    tx = 21
+                    ty = 3
+                elif t == 7:
+                    tx = 2
+                    ty = 6
+                elif t == 8:
+                    tx = 11
+                    ty = 6
+                elif t == 9:
+                    tx = 21
+                    ty = 6
+
+                window.blit(text, (x + 2 * tx, y + 6 * ty))
+
         elif not (self.getValue() == 0):
-            text = fnt.render(str(self.getValue()), 1, (0, 0, 0))
+            text = fnt.render(str(self.getValue()), 1, color)
             window.blit(text, (x + (gap / 2 - text.get_width() / 2), y + (gap / 2 - text.get_height() / 2)))
 
         if self.selected:
-            pygame.draw.rect(window, (255, 0, 0), (x, y, gap, gap), 3)
+            pygame.draw.rect(window, (2, 146, 246), (x, y, gap, gap), 3)

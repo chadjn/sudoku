@@ -15,8 +15,9 @@ class Grid():
         self.size = size
         self.width = width
         self.height = height
-        self.squares = [[Square(width, height, Coordinates(i,j), squares_to_add[Coordinates(i+1,j+1).fromCoordinatesToNumber(size)], [], squares_to_add[Coordinates(i+1,j+1).fromCoordinatesToNumber(size)] != 0, squares_to_add[Coordinates(i+1,j+1).fromCoordinatesToNumber(size) != 0]) for j in range(size)] for i in range (size)]
+        self.squares = [[Square(width, height, Coordinates(i,j), squares_to_add[Coordinates(i+1,j+1).fromCoordinatesToNumber(size)], [], squares_to_add[Coordinates(i+1,j+1).fromCoordinatesToNumber(size)] != 0, squares_to_add[Coordinates(i+1,j+1).fromCoordinatesToNumber(size)] != 0) for j in range(size)] for i in range (size)]
         self.selected = None
+        self.sketching = False
 
     def getId(self):
         return self.id
@@ -56,6 +57,12 @@ class Grid():
     def setSelected (self, new_selected):
         self.selected = new_selected
 
+    def isSketching (self):
+        return self.sketching
+
+    def setSketching (self, new_sketching):
+        self.sketching = new_sketching
+
     # Fonction qui renvoie une liste de coordonnées de case selon qu'elles sont correctes ou non
     def listOfSquaresByChecked(self, checked):
         list = []
@@ -68,17 +75,19 @@ class Grid():
     # Fonction qui vérifie que la partie n'est composée que de valeurs correctes
     def complete_checked(self):
         checked = True
+        end = False
 
         # La boucle continue à chercher tant qu'il n'a pas rencontré de valeur infirmante et qu'il reste des cases à vérifier
-        while checked is True:
+        while checked is True and end is False:
             for i in range(self.size):
                 for j in range(self.size):
                     if not self.squares[i][j].isChecked():
                         checked = False
+            end = True
 
         return checked
 
-    def drawGrid(self, win):
+    def drawGrid(self, win, clue):
         gap = self.width / 9
         for i in range(self.size + 1):
             if i % 3 == 0 and i != 0:
@@ -90,4 +99,10 @@ class Grid():
 
         for i in range(self.size):
             for j in range(self.size):
-                self.squares[i][j].drawSquare(win)
+                if clue and not self.squares[i][j].isFixed():
+                    if self.squares[i][j].isChecked():
+                        self.squares[i][j].drawSquare(win, (150, 204, 80))
+                    else:
+                        self.squares[i][j].drawSquare(win, (255, 60, 68))
+                else:
+                    self.squares[i][j].drawSquare(win, (0, 0, 0))
