@@ -11,6 +11,7 @@ from grids import *
 import grids_soluce
 from grids_soluce import *
 
+
 # Fonction qui permet à l'utilisateur de renseigner la case avec laquelle il souhaite interagir
 def chooseSquare(grid):
     x = 0
@@ -42,6 +43,7 @@ def winOrLoose(counter, max, grid):
         return grid.complete_checked()
 
 
+# Fonction qui permet un affichage du sudoku plus agréable, lisible et correspondant à une grille
 def print_sudoku(sudoku, size):
     for i in range(size):
         if i % 3 == 0 and i != 0:
@@ -57,6 +59,7 @@ def print_sudoku(sudoku, size):
                 sudoku.getGrid().getSquare(i, j).afficher("")
 
 
+# Fonction qui permet un affichage des brouillons du sudoku plus lisible et correspondant à une grille
 def print_sudoku_trials(sudoku, size):
     for i in range(size):
         if i % 3 == 0 and i != 0:
@@ -77,6 +80,7 @@ def print_sudoku_trials(sudoku, size):
                 print("                              |                               |                              ")
 
 
+# Fonction principale qui lance script
 def main():
     quit = False
     choice1 = 'M'
@@ -150,6 +154,17 @@ def main():
                             v = int(input("Quelle valeur voulez-vous renseigner ? "))
                         sudoku.addValue(s, v)
                         sudoku.clearTrials(s)
+
+                        # Si la grille est de niveau 1, alors la gestion des brouillons (effacement) est automatique
+                        if level == 1:
+                            for i in range(size):
+                                sudoku.removeTrial(sudoku.getGrid().getSquare(s.getCoordinates().getX(), i), v) # Suppression de tous les brouillons de même ligne correspondant à la valeur entrée
+                                sudoku.removeTrial(sudoku.getGrid().getSquare(i, s.getCoordinates().getY()), v) # Suppression de tous les brouillons de même colonne correspondant à la valeur entrée
+
+                            for p in sudoku.getGrid().getPiece(s):
+                                # Suppression de tous les brouillons de même "super-carré" correspondant à la valeur entrée, si et seulement s'il existe
+                                if sudoku.getGrid().getSquare(p.getX(), p.getY()).haveTrial(v):
+                                    sudoku.removeTrial(sudoku.getGrid().getSquare(p.getX(), p.getY()), v)
 
                         # Si la valeur renseignée correspond à celle entrée dans les solutions, alors l'attribut checked passe à True (pour signifier que la valeur est correcte)
                         if grid_soluce[level - 1][s.getCoordinates().fromCoordinatesToNumber(size)] == v:
@@ -298,5 +313,5 @@ def main():
             # On retourne ensuite au menu principal
             choice1 = 'M'
 
-
-#main()
+# Lancement de la fonction
+main()

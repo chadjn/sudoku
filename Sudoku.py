@@ -6,6 +6,7 @@ Date : 22 octobre 2019"""
 import Grid
 from Grid import *
 
+
 class Sudoku():
 
     # Initialisation avec un état de jeu
@@ -22,15 +23,15 @@ class Sudoku():
     def addValue(self, square, value):
         for i in range(self.grid.getSize()):
             for j in range(self.grid.getSize()):
-                if self.grid.getSquare(i,j).getCoordinates() == square.getCoordinates():
-                    self.grid.getSquare(i,j).setValue(value)
+                if self.grid.getSquare(i, j).getCoordinates() == square.getCoordinates():
+                    self.grid.getSquare(i, j).setValue(value)
 
     # Fonction qui permet d'ajouter une proposition à une case donnée
     def addTrial(self, square, trial):
         for i in range(self.grid.getSize()):
             for j in range(self.grid.getSize()):
                 if self.grid.getSquare(i, j).getCoordinates() == square.getCoordinates():
-                    self.grid.getSquare(i,j).addTrial(trial)
+                    self.grid.getSquare(i, j).addTrial(trial)
 
     # Fonction qui permet d'effacer une case donnée (sa valeur et ses propositions)
     def clearSquare(self, square):
@@ -46,7 +47,7 @@ class Sudoku():
             for j in range(self.grid.getSize()):
                 if self.grid.getSquare(i, j).getCoordinates() == square.getCoordinates():
                     if self.grid.getSquare(i, j).haveTrial(trial):
-                        self.grid.getSquare(i,j).clearTrial(trial)
+                        self.grid.getSquare(i, j).clearTrial(trial)
 
     # Fonction qui permet d'effacer toutes les propositions dans une case donnée
     def clearTrials(self, square):
@@ -55,14 +56,16 @@ class Sudoku():
                 if self.grid.getSquare(i, j).getCoordinates() == square.getCoordinates():
                     self.grid.getSquare(i, j).clearTrials()
 
+    # Fonction qui permet la sélection d'une case avec PyGame
     def select(self, coord):
         for i in range(self.grid.getSize()):
             for j in range(self.grid.getSize()):
-                self.grid.getSquare(i,j).setSelected(False)
+                self.grid.getSquare(i, j).setSelected(False)
 
-        self.grid.getSquare(coord.getX(),coord.getY()).setSelected(True)
+        self.grid.getSquare(coord.getX(), coord.getY()).setSelected(True)
         self.grid.setSelected(coord)
 
+    # Fonction qui définit quelle case a été cliquée avec PyGame (prend une position en paramètre et renvoie des coordonnées)
     def click(self, pos):
         """
         :param: pos
