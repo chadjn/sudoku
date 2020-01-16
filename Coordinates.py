@@ -27,5 +27,5 @@ class Coordinates:
     def fromCoordinatesToNumber(self, n):
         return (self.x - 1) * n + (self.y - 1)
 
-    def afficher(self):
+    def show(self):
         print("({},{})".format(self.x, self.y))

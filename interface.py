@@ -73,7 +73,7 @@ try:
         if counter > max:
             return True
         else:
-            return grid.complete_checked()
+            return grid.completeChecked()
 
     # Début de la boucle infinie
     key = None
@@ -602,7 +602,7 @@ try:
 
                     # Sinon, on vérifie que le sudoku est complet et correct
                     else:
-                        end = sudoku.getGrid().complete_checked()
+                        end = sudoku.getGrid().completeChecked()
 
                     # Si le jeu continue (ni gagné, ni perdu)
                     if not end:
@@ -688,7 +688,7 @@ try:
                         end_bg.fill((255, 255, 255))
 
                         # Affichage du message de réussite
-                        if sudoku.getGrid().complete_checked():
+                        if sudoku.getGrid().completeChecked():
                             text = fnt_h2.render("Bravo !", 1, dark_blue_color)
                             textpos = text.get_rect()
                             textpos.centerx = fenetre.get_rect().centerx

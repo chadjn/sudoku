@@ -97,7 +97,7 @@ class Grid():
         return list
 
     # Fonction qui vérifie que la partie n'est composée que de valeurs correctes
-    def complete_checked(self):
+    def completeChecked(self):
         checked = True
         end = False
 

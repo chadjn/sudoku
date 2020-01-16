@@ -29,10 +29,10 @@ def clue(grid):
     unchecked = grid.listOfSquaresByChecked(False)
     print("Les cases suivantes sont correctes :")
     for c in checked:
-        c.afficher()
+        c.show()
     print("Les cases suivantes sont incorrectes :")
     for u in unchecked:
-        u.afficher()
+        u.show()
 
 
 # Fonction qui vérifie si l'utilisateur a gagné ou perdu (rempli correctement, fait trop d'erreur ou a abandonné avant la fin)
@@ -40,11 +40,11 @@ def winOrLoose(counter, max, grid):
     if counter > max:
         return True
     else:
-        return grid.complete_checked()
+        return grid.completeChecked()
 
 
 # Fonction qui permet un affichage du sudoku plus agréable, lisible et correspondant à une grille
-def print_sudoku(sudoku, size):
+def printSudoku(sudoku, size):
     for i in range(size):
         if i % 3 == 0 and i != 0:
             print("- - - - - - - - - - - - - ")
@@ -54,13 +54,13 @@ def print_sudoku(sudoku, size):
                 print(" | ", end="")
 
             if j == size - 1:
-                sudoku.getGrid().getSquare(i, j).afficher(None)
+                sudoku.getGrid().getSquare(i, j).show(None)
             else:
-                sudoku.getGrid().getSquare(i, j).afficher("")
+                sudoku.getGrid().getSquare(i, j).show("")
 
 
 # Fonction qui permet un affichage des brouillons du sudoku plus lisible et correspondant à une grille
-def print_sudoku_trials(sudoku, size):
+def printSudokuTrials(sudoku, size):
     for i in range(size):
         if i % 3 == 0 and i != 0:
             print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -")
@@ -73,9 +73,9 @@ def print_sudoku_trials(sudoku, size):
                 square_to_print = sudoku.getGrid().getSquare(i, j)
 
                 if j == size - 1:
-                    square_to_print.afficher_trials(k, None, "X" if square_to_print.getValue() != 0 else " ")
+                    square_to_print.showTrials(k, None, "X" if square_to_print.getValue() != 0 else " ")
                 else:
-                    square_to_print.afficher_trials(k, "", "X" if square_to_print.getValue() != 0 else " ")
+                    square_to_print.showTrials(k, "", "X" if square_to_print.getValue() != 0 else " ")
             if k == 3 and i % 3 != 2:
                 print("                              |                               |                              ")
 
@@ -116,8 +116,8 @@ def main():
             grid = Grid(level, size, 400, 400, grid_empty[level - 1])
             sudoku = Sudoku(grid)
 
-            print_sudoku(sudoku, size)
-            print_sudoku_trials(sudoku, size)
+            printSudoku(sudoku, size)
+            printSudokuTrials(sudoku, size)
 
             end = False
             choice2 = 'L'
@@ -183,10 +183,10 @@ def main():
 
                         # Sinon, on vérifie que le sudoku est complet et correct
                         else:
-                            end = sudoku.getGrid().complete_checked()
+                            end = sudoku.getGrid().completeChecked()
 
-                        print_sudoku(sudoku, size)
-                        print_sudoku_trials(sudoku, size)
+                        printSudoku(sudoku, size)
+                        printSudokuTrials(sudoku, size)
 
                         # On retourne ensuite au menu intermédiaire
                         choice2 = 'L'
@@ -207,8 +207,8 @@ def main():
                         while t < 1 or t > 9:
                             t = int(input("Quelle valeur voulez-vous renseigner pour votre brouillon ? "))
                         sudoku.addTrial(s, t)
-                        print_sudoku(sudoku, size)
-                        print_sudoku_trials(sudoku, size)
+                        printSudoku(sudoku, size)
+                        printSudokuTrials(sudoku, size)
 
                         # On retourne ensuite au menu intermédiaire
                         choice2 = 'L'
@@ -218,8 +218,8 @@ def main():
                     s = chooseSquare(sudoku.getGrid())
                     sudoku.clearSquare(s)
                     s.setChecked(False)
-                    print_sudoku(sudoku, size)
-                    print_sudoku_trials(sudoku, size)
+                    printSudoku(sudoku, size)
+                    printSudokuTrials(sudoku, size)
 
                     # On retourne ensuite au menu intermédiaire
                     choice2 = 'L'
@@ -231,8 +231,8 @@ def main():
                     while t < 1 or t > 9:
                         t = int(input("Quelle valeur voulez-vous effacer de votre brouillon ? "))
                     sudoku.removeTrial(s, t)
-                    print_sudoku(sudoku, size)
-                    print_sudoku_trials(sudoku, size)
+                    printSudoku(sudoku, size)
+                    printSudokuTrials(sudoku, size)
 
                     # On retourne ensuite au menu intermédiaire
                     choice2 = 'L'
@@ -288,11 +288,11 @@ def main():
         elif choice1 == 'E':
 
             # Si le sudoku est complet et correct, alors un message de réussite s'affiche
-            if sudoku.getGrid().complete_checked():
+            if sudoku.getGrid().completeChecked():
                 print('Bravo {} ! Vous avez terminé la grille avec succès !'.format(name))
 
             # Si le sudoku est incomplet et/ou incorrect, alors un message de défaite s'affiche
-            elif not sudoku.getGrid().complete_checked():
+            elif not sudoku.getGrid().completeChecked():
                 print('Oh... Désolé, {}, mais tu as perdu.'.format(name))
 
             # Sinon, c'est une utilision détournée, nous le faisons remarquer

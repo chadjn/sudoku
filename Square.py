@@ -86,11 +86,11 @@ class Square:
     def clearValue(self):
         self.value = 0
 
-    def afficher(self, end):
+    def show(self, end):
         print(str(self.getValue()) + " ", end=end) # La variable end définit s'il faut sauter une ligne après la valeur
 
-    def afficher_trials(self, line, end, fill):
-        # Chaque emplacement a sa valeur propre, on vérifie donc que la valeur est présente pour l'afficher, sinon le brouillon est rempli par défaut (fill)
+    def showTrials(self, line, end, fill):
+        # Chaque emplacement a sa valeur propre, on vérifie donc que la valeur est présente pour l'show, sinon le brouillon est rempli par défaut (fill)
         print('[{}][{}][{}] '.format(3 * line - 2 if self.haveTrial(3 * line - 2) else fill,
                                      3 * line - 1 if self.haveTrial(3 * line - 1) else fill,
                                      3 * line if self.haveTrial(3 * line) else fill), end=end)
