@@ -299,8 +299,8 @@ def main():
             else:
                 print('Petit malin...')
 
-                # On retourne ensuite au menu principal
-                choice1 = 'M'
+            # On retourne ensuite au menu principal
+            choice1 = 'M'
 
         # Quitter le jeu
         elif choice1 == 'Q':
